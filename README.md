@@ -68,6 +68,10 @@ done
 ```
 
 2.2. QUAST
+>
+Description:
+>
+Link:
 ```{bash}
 conda activate quast_env
 cd /home/alejandro_jimenez/seq/mg/Alignment_1/Fastq/fastqc
@@ -75,6 +79,10 @@ quast.py a5_output.contigs.fasta -o quast_a5_output -l a5
 ````
 
 2.3. BUSCO
+>
+Description:
+>
+Link:
 ```{bash}
 module load Anaconda3/4.4.0
 module load augustus
@@ -83,6 +91,10 @@ run_BUSCO.py -c 4 -i a5_output.contigs.fasta -l /home/alejandro_jimenez/bacteria
 
 ## 3. Alignment
 3.1. BWA, SAMtools
+>
+Description:
+>
+Link:
 ```{bash}
 bwa index mygenome.contigs.fasta
 bwa mem mygenome.contigs.fasta trim_R1_concatenado.fastq.gz trim_R2_concatenado.fastq.gz > result.sam
@@ -97,18 +109,34 @@ samtools faidx result_sort.bam
 ```
 
 3.2. Qualimap
+>
+Description:
+>
+Link:
 
 ## 4. Annotation
 4.1. Prokka
+>
+Description:
+>
+Link: https://github.com/tseemann/prokka/blob/master/README.md
 ```{bash}
 conda activate prokka_env
 cd /home/alejandro_jimenez/seq/mg/Alignment_1/Fastq/fastqc/
 prokka a5_output.contigs.fasta --cpus 6 --outdir prokka_output
 ```
 4.2. Functional annotation
+>
+Description:
+>
+Link:
 http://eggnog-mapper.embl.de/
 
 ## 5. Pathogenicity prediction
+>
+Description:
+>
+Link:
 ```{bash
 conda activate diamond_env
 diamond blastp --db /home/alejandro_jimenez/vfdb -q SA.fasta -o vfdb_results_SA.tsv --query-cover 97 --id 50
