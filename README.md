@@ -16,7 +16,7 @@
 ## 1. Sequencing quality control and trimming
 
 ## 2. De novo genome assembly and evaluation 
-2.1. A5
+2.1. A5-miseq https://sourceforge.net/p/ngopt/wiki/A5PipelineREADME/ 
 ```{bash}
 # Ruta de la carpeta principal
 origen="/home/alejandro_jimenez/seq"
