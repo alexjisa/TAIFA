@@ -112,7 +112,7 @@ samtools faidx result_sort.bam
 
 3.2. Qualimap
 
-## 4) Annotation
+## 4, Annotation
 4.1. Prokka
 ```{bash}
 conda activate prokka_env
@@ -122,7 +122,7 @@ nohup time -p prokka a5_output.contigs.fasta --cpus 6 --outdir prokka_output &
 4.2. Functional annotation
 http://eggnog-mapper.embl.de/
 
-## 5) Pathogenicity prediction
+## 5. Pathogenicity prediction
 ```{bash
 }conda activate diamond_env
 diamond blastp --db /home/alejandro_jimenez/vfdb -q SA.fasta -o vfdb_results_SA.tsv --query-cover 97 --id 50
