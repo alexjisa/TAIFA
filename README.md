@@ -141,7 +141,7 @@ Description:
 Link:
 http://eggnog-mapper.embl.de/
 
-## 5. Pathogenicity prediction
+## 5. Virulence factors prediction
 >
 Description:
 >
