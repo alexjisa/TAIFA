@@ -25,9 +25,9 @@ java -jar /data/home/alejandro_jimenez/trimmomatic-0.39/trimmomatic-0.39.jar PE 
 
 ## 2. De novo genome assembly and evaluation 
 2.1. A5-miseq
->>
+>
 Description:
->>
+>
 Link: https://sourceforge.net/p/ngopt/wiki/A5PipelineREADME/  
 ```{bash}
 # Ruta de la carpeta principal
