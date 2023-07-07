@@ -124,7 +124,7 @@ http://eggnog-mapper.embl.de/
 
 ## 5. Pathogenicity prediction
 ```{bash
-}conda activate diamond_env
+conda activate diamond_env
 diamond blastp --db /home/alejandro_jimenez/vfdb -q SA.fasta -o vfdb_results_SA.tsv --query-cover 97 --id 50
 ```
 
