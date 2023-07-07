@@ -12,8 +12,16 @@
 - Pathogenicity prediction 
   
 # Workflow
-
 ## 1. Sequencing quality control and trimming
+1.1. FastQC
+```{bash}
+/home/alejandro_jimenez/fastqc/fastqc /home/alejandro_jimenez/seq/mg/Alignment_1/Fastq/*.fastq.gz -o "$carpeta"/Alignment_1/Fastq/fastqc
+```
+1.2. Trimmomatic
+```{bash}
+# Ruta de la carpeta principal
+java -jar /data/home/alejandro_jimenez/trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 MG_S1_L001_R1_001.fastq.gz MG_S1_L001_R2_001.fastq.gz /home/alejandro_jimenez/seq/mg/Alignment_1/Fastq/fastqc/trim_MG_S1_L001_R1_001.fastq.gz Undetermined_S0_L001_R1_001.fastq.gz /home/alejandro_jimenez/seq/mg/Alignment_1/Fastq/fastqc/trim_MG_S1_L001_R2_001.fastq.gz Undetermined_S0_L001_R2_001.fastq.gz CROP:150 HEADCROP:1 AVGQUAL:20 SLIDINGWINDOW:4:20
+```
 
 ## 2. De novo genome assembly and evaluation 
 2.1. A5-miseq
@@ -71,7 +79,7 @@ done
 >
 Description:
 >
-Link:
+Link: https://quast.sourceforge.net/docs/manual.html
 ```{bash}
 conda activate quast_env
 cd /home/alejandro_jimenez/seq/mg/Alignment_1/Fastq/fastqc
@@ -80,9 +88,9 @@ quast.py a5_output.contigs.fasta -o quast_a5_output -l a5
 
 2.3. BUSCO
 >
-Description:
+Description: 
 >
-Link:
+Link: https://busco.ezlab.org/
 ```{bash}
 module load Anaconda3/4.4.0
 module load augustus
@@ -125,6 +133,7 @@ conda activate prokka_env
 cd /home/alejandro_jimenez/seq/mg/Alignment_1/Fastq/fastqc/
 prokka a5_output.contigs.fasta --cpus 6 --outdir prokka_output
 ```
+
 4.2. Functional annotation
 >
 Description:
