@@ -15,7 +15,7 @@
 ## 1. Sequencing quality control and trimming
 1.1. FastQC
 ```{bash}
-/home/alejandro_jimenez/fastqc/fastqc /home/alejandro_jimenez/seq/mg/Alignment_1/Fastq/*.fastq.gz -o "$carpeta"/Alignment_1/Fastq/fastqc
+/path/to/fastqc path/to/*.fastq.gz -o "$carpeta"/Alignment_1/Fastq/fastqc
 ```
 1.2. Trimmomatic
 ```{bash}
