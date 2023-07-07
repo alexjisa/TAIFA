@@ -66,26 +66,8 @@ done
 2.2. QUAST
 ```{bash}
 conda activate quast_env
-
-# Ruta de la carpeta principal
-origen="/home/alejandro_jimenez/seq"
-
-# Recorrer todas las carpetas dentro de la carpeta principal
-for carpeta in "$origen"/*; do
-if [ -d "$carpeta" ]; then
-  # Entrar en la carpeta "Alignment_1"
-  cd "$carpeta/Alignment_1" || continue
-  # Verificar si la carpeta "Fastq" existe
-  if [ -d "Fastq" ]; then
-    # Entrar en la carpeta "Fastq"
-    cd "$carpeta/Alignment_1/Fastq" || continue
-    if [ -d "fastqc" ]; then
-      cd "$carpeta/Alignment_1/Fastq/fastqc" || continue
-      quast.py a5_output.contigs.fasta -o quast_a5_output -l a5
-    fi 
-  fi
-fi
-done
+cd /home/alejandro_jimenez/seq/mg/Alignment_1/Fastq/fastqc
+quast.py a5_output.contigs.fasta -o quast_a5_output -l a5
 ````
 
 2.3. BUSCO
@@ -112,12 +94,12 @@ samtools faidx result_sort.bam
 
 3.2. Qualimap
 
-## 4, Annotation
+## 4. Annotation
 4.1. Prokka
 ```{bash}
 conda activate prokka_env
 cd /home/alejandro_jimenez/seq/mg/Alignment_1/Fastq/fastqc/
-nohup time -p prokka a5_output.contigs.fasta --cpus 6 --outdir prokka_output &
+prokka a5_output.contigs.fasta --cpus 6 --outdir prokka_output
 ```
 4.2. Functional annotation
 http://eggnog-mapper.embl.de/
