@@ -40,6 +40,7 @@ Link: https://github.com/s-andrews/FastQC/blob/master/README.md
 *1.2. Trimmomatic*
 >
 Description:
+
 >
 Link: https://github.com/usadellab/Trimmomatic/blob/main/README.md
 ```{bash}
@@ -58,8 +59,11 @@ This quality control allows us to check if we are satisfied with the cleaning of
 2.1. A5-miseq
 >
 Description:
+Pipeline for assembling DNA sequence data generated on the Illumina sequencing platform (homozygous haploid genomes and reads greater than 80 pb).
 >
-Link: https://sourceforge.net/p/ngopt/wiki/A5PipelineREADME/  
+Easy, fast and the best results.
+>
+Link: https://sourceforge.net/p/ngopt/wiki/A5PipelineREADME/ ; DOI:10.1093/bioinformatics/btu661
 ```{bash}
 /path/to/a5_pipeline.pl --threads=4 R1.fastq R2.fastq a5_output 
 ```
@@ -67,23 +71,25 @@ Link: https://sourceforge.net/p/ngopt/wiki/A5PipelineREADME/
 2.2. QUAST
 >
 Description:
+Evaluation according to assembly continuity (number of bp, number of contigs or N50) and other information (like GC%, largest contig or mismatches).
 >
 Link: https://quast.sourceforge.net/docs/manual.html
 ```{bash}
 conda activate quast_env
-cd /home/alejandro_jimenez/seq/mg/Alignment_1/Fastq/fastqc
 quast.py a5_output.contigs.fasta -o quast_a5_output -l a5
 ````
 
 2.3. BUSCO
 >
-Description: 
+Description:
 >
-Link: https://busco.ezlab.org/
+Evaluation according to assembly content.
+>
+Link: https://busco.ezlab.org/v3/
 ```{bash}
 module load Anaconda3/4.4.0
 module load augustus
-run_BUSCO.py -c 4 -i a5_output.contigs.fasta -l /home/alejandro_jimenez/bacteria_odb9 -o busco_a5 -m geno 
+run_BUSCO.py -c 4 -i a5_output.contigs.fasta -l /path/to/bacteria_odb9 -o busco_a5 -m geno 
 ```
 
 ## 3. Mapping
