@@ -8,7 +8,7 @@ WGS provides a global view of the entire genome. The flexible, scalable and fast
 >
 Bacterial genomic DNA is obtained using an extraction and purification kit according to the instructions of the commercial company.
 >
-Libraries are prepared using Illumina DNA Prep technology (previously known as Nextera DNA Flex) and quantitation and quality control are performed before sequencing.
+Libraries are prepared using Illumina DNA Prep technology (previously known as Nextera DNA Flex). Quantitation and quality control are performed before sequencing.
 >
 Results are from Illumina iSeq100 paired-end sequencing run, 2 × 150 bp. Around 17 hours with a maximum output of 1.2 Gb.
 >
