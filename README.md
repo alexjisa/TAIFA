@@ -117,7 +117,11 @@ Description:
 >
 Link:
 
-3.3. Qualimap
+*3.3. Qualimap*
+>
+Description:
+>
+Link:
 
 ## 4. Annotation
 *4.1. Structural annotation: Prokka*
@@ -146,6 +150,8 @@ Link: https://github.com/eggnogdb/eggnog-mapper
 ## 5. Virulence factors prediction
 >
 Description:
+>
+Preliminary approaches to determine the possible pathogenicity of bacteria are necessary in any kind of research. The characterisation of virulence factors (VFs), proteins enable to cause infection, from WGS data allows you to get an idea of the microorganism you are working with.
 >
 Link: https://github.com/bbuchfink/diamond/blob/master/README.md ; http://www.mgc.ac.cn/cgi-bin/VFs/v5/main.cgi
 ```{bash
