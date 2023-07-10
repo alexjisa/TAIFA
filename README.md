@@ -82,7 +82,6 @@ quast.py a5_output.contigs.fasta -o quast_a5_output -l a5
 *2.3. BUSCO*
 >
 Description:
->
 Evaluation according to assembly content.
 >
 Link: https://busco.ezlab.org/v3/
