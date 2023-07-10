@@ -13,7 +13,7 @@
   
 # Workflow
 ## 1. Sequencing quality control and trimming
-1.1. FastQC
+1.1. First FastQC
 ```{bash}
 /path/to/fastqc path/to/*.fastq.gz -o "$carpeta"/Alignment_1/Fastq/fastqc
 ```
@@ -22,7 +22,10 @@
 # Ruta de la carpeta principal
 java -jar /data/home/alejandro_jimenez/trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 MG_S1_L001_R1_001.fastq.gz MG_S1_L001_R2_001.fastq.gz /home/alejandro_jimenez/seq/mg/Alignment_1/Fastq/fastqc/trim_MG_S1_L001_R1_001.fastq.gz Undetermined_S0_L001_R1_001.fastq.gz /home/alejandro_jimenez/seq/mg/Alignment_1/Fastq/fastqc/trim_MG_S1_L001_R2_001.fastq.gz Undetermined_S0_L001_R2_001.fastq.gz CROP:150 HEADCROP:1 AVGQUAL:20 SLIDINGWINDOW:4:20
 ```
-
+1.3. Second FastQC
+```{bash}
+/path/to/fastqc path/to/*.fastq.gz -o "$carpeta"/Alignment_1/Fastq/fastqc
+```
 ## 2. De novo genome assembly and evaluation 
 2.1. A5-miseq
 >
@@ -97,7 +100,7 @@ module load augustus
 run_BUSCO.py -c 4 -i a5_output.contigs.fasta -l /home/alejandro_jimenez/bacteria_odb9 -o busco_a5 -m geno 
 ```
 
-## 3. Alignment
+## 3. Mapping
 3.1. BWA, SAMtools
 >
 Description:
@@ -116,11 +119,13 @@ samtools index result_sort.bam
 samtools faidx result_sort.bam
 ```
 
-3.2. Qualimap
+3.2. IGV
 >
 Description:
 >
 Link:
+
+3.3. Qualimap
 
 ## 4. Annotation
 4.1. Prokka
