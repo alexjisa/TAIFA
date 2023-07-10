@@ -38,7 +38,6 @@ Link: https://github.com/s-andrews/FastQC/blob/master/README.md
 *1.2. Trimmomatic*
 >
 Description:
-
 >
 Link: https://github.com/usadellab/Trimmomatic/blob/main/README.md
 ```{bash}
@@ -57,6 +56,7 @@ This quality control allows us to check if we are satisfied with the cleaning of
 *2.1. A5-miseq*
 >
 Description:
+>
 Pipeline for assembling DNA sequence data generated on the Illumina sequencing platform (homozygous haploid genomes and reads greater than 80 pb).
 >
 Easy, fast and the best results.
@@ -72,6 +72,7 @@ Link: https://sourceforge.net/p/ngopt/wiki/A5PipelineREADME/ ; DOI:10.1093/bioin
 >
 >
 Description:
+>
 Evaluation according to assembly continuity (number of bp, number of contigs or N50) and other information (like GC%, largest contig or mismatches).
 >
 Link: https://quast.sourceforge.net/docs/manual.html
@@ -83,6 +84,7 @@ quast.py a5_output.contigs.fasta -o quast_a5_output -l a5
 *2.3. BUSCO*
 >
 Description:
+>
 Evaluation according to assembly content.
 >
 Link: https://busco.ezlab.org/v3/
