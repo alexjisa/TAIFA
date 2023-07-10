@@ -147,7 +147,7 @@ The annotation is one of the most complete and the execution time is very afford
 >
 Link: https://github.com/eggnogdb/eggnog-mapper
 
-## 5. Virulence factors prediction
+## 5. Pathogenicity prediction
 >
 Description:
 >
