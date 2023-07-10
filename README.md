@@ -47,7 +47,7 @@ Link: https://github.com/usadellab/Trimmomatic/blob/main/README.md
 cd /path/to/
 java -jar /path/to/trimmomatic-0.39.jar PE -phred33 R1.fastq.gz R2.fastq.gz trim_R1.fastq.gz Undetermined_R1.fastq.gz trim_R2.fastq.gz Undetermined_R2.fastq.gz CROP:150 HEADCROP:1 AVGQUAL:20 SLIDINGWINDOW:4:20
 ```
-1.3. Second FastQC
+*1.3. Second FastQC*
 >
 Description:
 >
@@ -56,7 +56,7 @@ This quality control allows us to check if we are satisfied with the cleaning of
 /path/to/fastqc path/to/trim_* -o /path/to/fastqc_output
 ```
 ## 2. De novo genome assembly and evaluation 
-2.1. A5-miseq
+*2.1. A5-miseq*
 >
 Description:
 Pipeline for assembling DNA sequence data generated on the Illumina sequencing platform (homozygous haploid genomes and reads greater than 80 pb).
@@ -68,7 +68,7 @@ Link: https://sourceforge.net/p/ngopt/wiki/A5PipelineREADME/ ; DOI:10.1093/bioin
 /path/to/a5_pipeline.pl --threads=4 R1.fastq R2.fastq a5_output 
 ```
 
-2.2. QUAST
+*2.2. QUAST*
 >
 Description:
 Evaluation according to assembly continuity (number of bp, number of contigs or N50) and other information (like GC%, largest contig or mismatches).
@@ -79,7 +79,7 @@ conda activate quast_env
 quast.py a5_output.contigs.fasta -o quast_a5_output -l a5
 ````
 
-2.3. BUSCO
+*2.3. BUSCO*
 >
 Description:
 >
@@ -93,7 +93,7 @@ run_BUSCO.py -c 4 -i a5_output.contigs.fasta -l /path/to/bacteria_odb9 -o busco_
 ```
 
 ## 3. Mapping
-3.1. BWA, SAMtools
+*3.1. BWA, SAMtools*
 >
 Description:
 >
@@ -111,7 +111,7 @@ samtools index result_sort.bam
 samtools faidx result_sort.bam
 ```
 
-3.2. IGV
+*3.2. IGV*
 >
 Description:
 >
@@ -120,7 +120,7 @@ Link:
 3.3. Qualimap
 
 ## 4. Annotation
-4.1. Prokka
+*4.1. Structural annotation: Prokka*
 >
 Description:
 >
@@ -131,7 +131,7 @@ cd /home/alejandro_jimenez/seq/mg/Alignment_1/Fastq/fastqc/
 prokka a5_output.contigs.fasta --cpus 6 --outdir prokka_output
 ```
 
-4.2. Functional annotation
+*4.2. Functional annotation: EggNOG-mapper*
 >
 Description:
 >
