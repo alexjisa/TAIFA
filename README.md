@@ -1,7 +1,5 @@
 > **TAIFA is a workflow for conducting Whole-Genome Sequencing (WGS) of bacteria**
->
-[![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
->
+
 # Introduction
 >
 WGS provides a global view of the entire genome. The flexible, scalable and fast nature of Next-Generation Sequencing (NGS) techniques as well as the dropping costs in recent years opens the door to a powerful tool for genomics research. Sequencing, de novo assembly and annotation of bacterial genomes has great potential for clinical, industrial or basic science applications.
@@ -70,6 +68,9 @@ Link: https://sourceforge.net/p/ngopt/wiki/A5PipelineREADME/ ; DOI:10.1093/bioin
 
 *2.2. QUAST*
 >
+[![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
+>
+>
 Description:
 Evaluation according to assembly continuity (number of bp, number of contigs or N50) and other information (like GC%, largest contig or mismatches).
 >
@@ -127,6 +128,9 @@ Link: http://qualimap.conesalab.org/
 ## 4. Annotation
 *4.1. Structural annotation: Prokka*
 >
+[![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
+>
+>
 Description:
 >
 It combines the use of Prodigal (location of coding genes) and Infernal (location of non-protein coding genes) to generate as output several files (faa, ffn, gff or gbk, among others) that will be required for functional annotation by most bioinformatics tools.
@@ -151,6 +155,9 @@ The annotation is one of the most complete and the execution time is very afford
 Link: https://github.com/eggnogdb/eggnog-mapper
 
 ## 5. Pathogenicity prediction
+>
+[![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
+>
 >
 Description:
 >
