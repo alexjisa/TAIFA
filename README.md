@@ -4,16 +4,26 @@
 
 # Introduction
 
+# Context
+Libraries are prepared using Illumina DNA Prep technology.
+Quantification of libraries using PicoGreen and quality control using the High Sensitivity DNA assay on the 2100 Bioanalyzer System.
+Results are from Illumina iSeq100 paired-end sequencing run, 2 × 150 bp. Around 19 hours with a maximum output of 1.2 Gb.
+R1.fastq.gz, R2.fastq.gz, Undetermined_R1.fastq.gz and Undetermined_R2.fastq.gz are automatically generated from the base calling intensities (bci).
+
 # Workflow summary
 - Sequencing quality control and trimming
 - De novo genome assembly and evaluation 
-- Alignment 
+- Mapping 
 - Annotation
 - Pathogenicity prediction 
   
 # Workflow
 ## 1. Sequencing quality control and trimming
 1.1. First FastQC
+>
+Description:
+>
+Link: https://github.com/s-andrews/FastQC/blob/master/README.md 
 ```{bash}
 /path/to/fastqc path/to/*.fastq.gz -o "$carpeta"/Alignment_1/Fastq/fastqc
 ```
