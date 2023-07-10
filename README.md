@@ -8,7 +8,7 @@ WGS provides a global view of the entire genome. The flexible, scalable and fast
 >
 # Context
 >
-Bacterial genomic DNA are obtained using an extraction and purification kit according to the instructions of the commercial company.
+Bacterial genomic DNA is obtained using an extraction and purification kit according to the instructions of the commercial company.
 >
 Libraries are prepared using Illumina DNA Prep technology (previously known as Nextera DNA Flex).
 >
