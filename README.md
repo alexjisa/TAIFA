@@ -128,6 +128,8 @@ Link:
 >
 Description:
 >
+It combines the use of Prodigal (location of coding genes) and Infernal (location of non-protein coding genes) to generate as output several files (faa, ffn, gff or gbk, among others) that will be required for functional annotation by most bioinformatics tools.
+>
 Link: https://github.com/tseemann/prokka/blob/master/README.md
 ```{bash}
 conda activate prokka_env
