@@ -115,13 +115,15 @@ samtools faidx result_sort.bam
 >
 Description:
 >
-Link:
+Link: https://software.broadinstitute.org/software/igv/
 
 *3.3. Qualimap*
 >
 Description:
 >
-Link:
+
+>
+Link: http://qualimap.conesalab.org/
 
 ## 4. Annotation
 *4.1. Structural annotation: Prokka*
