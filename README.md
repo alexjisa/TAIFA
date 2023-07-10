@@ -1,40 +1,58 @@
-> **TAIFA is a workflow to analyse whole genome sequencing data from bacteria**
+> **TAIFA is a workflow for conducting Whole-Genome Sequencing (WGS) of bacteria**
 >
 [![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
-
+>
 # Introduction
-
+>
+WGS provides a global view of the entire genome. The flexible, scalable and fast nature of Next-Generation Sequencing (NGS) techniques as well as the dropping costs in recent years opens the door to a powerful tool for genomics research. Sequencing, de novo assembly and annotation of bacterial genomes has great potential for clinical, industrial or basic science applications.
+>
 # Context
-Libraries are prepared using Illumina DNA Prep technology.
-Quantification of libraries using PicoGreen and quality control using the High Sensitivity DNA assay on the 2100 Bioanalyzer System.
-Results are from Illumina iSeq100 paired-end sequencing run, 2 × 150 bp. Around 19 hours with a maximum output of 1.2 Gb.
-R1.fastq.gz, R2.fastq.gz, Undetermined_R1.fastq.gz and Undetermined_R2.fastq.gz are automatically generated from the base calling intensities (bci).
+>
+Bacterial genomic DNA are obtained using an extraction and purification kit according to the instructions of the commercial company.
+>
+Libraries are prepared using Illumina DNA Prep technology (previously known as Nextera DNA Flex).
+>
+Quantitation and quality control of libraries is performed using the PicoGreen assay and the High Sensitivity DNA assay on the 2100 Bioanalyzer System, respectively.
+>
+Results are from Illumina iSeq100 paired-end sequencing run, 2 × 150 bp. Around 17 hours with a maximum output of 1.2 Gb.
+>
+R1.fastq.gz, R2.fastq.gz, Undetermined_R1.fastq.gz and Undetermined_R2.fastq.gz are automatically generated from the base-calling (bci).
 
 # Workflow summary
-- Sequencing quality control and trimming
-- De novo genome assembly and evaluation 
-- Mapping 
-- Annotation
-- Pathogenicity prediction 
+1. Sequencing quality control and trimming
+2. De novo genome assembly and evaluation 
+3. Mapping 
+4. Annotation
+5. Pathogenicity prediction 
   
 # Workflow
 ## 1. Sequencing quality control and trimming
-1.1. First FastQC
+*1.1. First FastQC*
 >
 Description:
 >
+Basic quality control checks of the raw reads by browsing an html file containing the main quality parameters.  
+>
 Link: https://github.com/s-andrews/FastQC/blob/master/README.md 
 ```{bash}
-/path/to/fastqc path/to/*.fastq.gz -o "$carpeta"/Alignment_1/Fastq/fastqc
+/path/to/fastqc path/to/*.fastq.gz -o /path/to/fastqc_output
 ```
-1.2. Trimmomatic
+*1.2. Trimmomatic*
+>
+Description:
+>
+Link: https://github.com/usadellab/Trimmomatic/blob/main/README.md
 ```{bash}
-# Ruta de la carpeta principal
-java -jar /data/home/alejandro_jimenez/trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 MG_S1_L001_R1_001.fastq.gz MG_S1_L001_R2_001.fastq.gz /home/alejandro_jimenez/seq/mg/Alignment_1/Fastq/fastqc/trim_MG_S1_L001_R1_001.fastq.gz Undetermined_S0_L001_R1_001.fastq.gz /home/alejandro_jimenez/seq/mg/Alignment_1/Fastq/fastqc/trim_MG_S1_L001_R2_001.fastq.gz Undetermined_S0_L001_R2_001.fastq.gz CROP:150 HEADCROP:1 AVGQUAL:20 SLIDINGWINDOW:4:20
+cd /path/to/
+java -jar /path/to/trimmomatic-0.39.jar PE -phred33 R1.fastq.gz R2.fastq.gz trim_R1.fastq.gz Undetermined_R1.fastq.gz trim_R2.fastq.gz Undetermined_R2.fastq.gz CROP:150 HEADCROP:1 AVGQUAL:20 SLIDINGWINDOW:4:20
 ```
 1.3. Second FastQC
+>
+Description:
+>
+This quality control allows us to check if we are satisfied with the cleaning of the reads before proceeding to the next steps.
 ```{bash}
-/path/to/fastqc path/to/*.fastq.gz -o "$carpeta"/Alignment_1/Fastq/fastqc
+/path/to/fastqc path/to/trim_* -o /path/to/fastqc_output
 ```
 ## 2. De novo genome assembly and evaluation 
 2.1. A5-miseq
@@ -43,49 +61,7 @@ Description:
 >
 Link: https://sourceforge.net/p/ngopt/wiki/A5PipelineREADME/  
 ```{bash}
-# Ruta de la carpeta principal
-origen="/home/alejandro_jimenez/seq"
-
-# Expresión regular para los archivos R1
-patron_r1="trim_.*_S1_L001_R1_001.fastq"
-
-# Expresión regular para los archivos R2
-patron_r2="trim_.*_S1_L001_R2_001.fastq"
-
-# Recorrer todas las carpetas dentro de la carpeta principal
-for carpeta in "$origen"/*; do
-if [ -d "$carpeta" ]; then
-  # Entrar en la carpeta "Alignment_1"
-  cd "$carpeta/Alignment_1" || continue
-  # Verificar si la carpeta "Fastq" existe
-  if [ -d "Fastq" ]; then
-    # Entrar en la carpeta "Fastq"
-    cd "$carpeta/Alignment_1/Fastq" || continue
-    if [ -d "fastqc" ]; then
-      cd "$carpeta/Alignment_1/Fastq/fastqc" || continue
-      
-      # Buscar archivos R1 que coincidan con el patrón en la carpeta principal y subcarpetas
-      archivos_r1=$(find "$carpeta/Alignment_1/Fastq/fastqc" -regex ".*/$patron_r1")
-
-      # Buscar archivos R2 que coincidan con el patrón en la carpeta principal y subcarpetas
-      archivos_r2=$(find "$carpeta/Alignment_1/Fastq/fastqc" -regex ".*/$patron_r2")
-      
-      # Verificar si se encontraron archivos R1 y R2
-      if [ -n "$archivos_r1" ] && [ -n "$archivos_r2" ]; then
-      # Ejecutar el comando sobre cada par de archivos R1 y R2
-        for archivo_r1 in $archivos_r1; do
-          archivo_r2=$(echo "$archivo_r1" | sed 's/R1/R2/')
-          nohup time -p /data/home/alejandro_jimenez/a5/bin/a5_pipeline.pl --threads=4 "$archivo_r1" "$archivo_r2" a5_output &
-        done
-        # Mostrar mensaje de confirmacion
-        echo "Ensamblaje con A5 de las reads de la carpeta "$carpeta" realizado"
-      else
-      echo "No se encontraron archivos que coincidan con los patrones"
-      fi
-    fi
-  fi
-fi
-done
+/path/to/a5_pipeline.pl --threads=4 R1.fastq R2.fastq a5_output 
 ```
 
 2.2. QUAST
@@ -153,17 +129,26 @@ prokka a5_output.contigs.fasta --cpus 6 --outdir prokka_output
 >
 Description:
 >
-Link:
-http://eggnog-mapper.embl.de/
+EggNOG-mapper uses DIAMOND and HMM to functionally annotate using groups of orthologues at different taxonomic levels and phylogenies from the eggNOG database.
+>
+Its public online resource (http://eggnog-mapper.embl.de/) allows uploading up to 100,000 CDS in FASTA format, more than enough to annotate a complete bacterial genome.
+>
+The annotation is one of the most complete and the execution time is very affordable.
+>
+Link: https://github.com/eggnogdb/eggnog-mapper
 
 ## 5. Virulence factors prediction
 >
 Description:
 >
-Link:
+Link: https://github.com/bbuchfink/diamond/blob/master/README.md ; http://www.mgc.ac.cn/cgi-bin/VFs/v5/main.cgi
 ```{bash
 conda activate diamond_env
-diamond blastp --db /home/alejandro_jimenez/vfdb -q SA.fasta -o vfdb_results_SA.tsv --query-cover 97 --id 50
+diamond blastp --db /home/alejandro_jimenez/vfdb -q a5_output_contigs.fasta -o vfdb_results.tsv --query-cover 97 --id 50
 ```
 
 # Credits
+>
+Done by Alejandro Jimenez-Sanchez for his MSc dissertation under the supervision of Dr. Alvaro Polonio.
+>
+The bioinformatics tools included in this repository were chosen based on the execution time and the quality of the results generated by each of them according to the bacterial genomes we worked with. Different programs were evaluated, mainly assemblers and annotators, which are not listed. It is recommended to test alternatives to those proposed here as each project is unique. 
