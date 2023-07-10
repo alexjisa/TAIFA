@@ -138,7 +138,6 @@ It combines the use of Prodigal (location of coding genes) and Infernal (locatio
 Link: https://github.com/tseemann/prokka/blob/master/README.md
 ```{bash}
 conda activate prokka_env
-cd /home/alejandro_jimenez/seq/mg/Alignment_1/Fastq/fastqc/
 prokka a5_output.contigs.fasta --cpus 6 --outdir prokka_output
 ```
 
