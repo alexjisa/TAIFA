@@ -39,7 +39,6 @@ Description:
 >
 Link: https://github.com/usadellab/Trimmomatic/blob/main/README.md
 ```{bash}
-cd /path/to/
 java -jar /path/to/trimmomatic-0.39.jar PE -phred33 R1.fastq.gz R2.fastq.gz trim_R1.fastq.gz Undetermined_R1.fastq.gz trim_R2.fastq.gz Undetermined_R2.fastq.gz CROP:150 HEADCROP:1 AVGQUAL:20 SLIDINGWINDOW:4:20
 ```
 *1.3. Second FastQC*
@@ -149,7 +148,7 @@ EggNOG-mapper uses DIAMOND and HMM to functionally annotate using groups of orth
 >
 Its public online resource (http://eggnog-mapper.embl.de/) allows uploading up to 100,000 CDS in FASTA format, more than enough to annotate a complete bacterial genome.
 >
-The annotation is one of the most complete and the execution time is very affordable.
+The annotation is one of the most complete (COG category,  GOs, EC, KEGG, CAZY or PFAMs) and the execution time is very affordable.
 >
 Link: https://github.com/eggnogdb/eggnog-mapper
 
