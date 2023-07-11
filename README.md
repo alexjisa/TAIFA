@@ -12,7 +12,7 @@ Libraries are prepared using Illumina DNA Prep technology (previously known as N
 >
 Results are from Illumina iSeq100 paired-end (PE) sequencing run, 2 × 150 bp. Around 17 hours with a maximum output of 1.2 Gb.
 >
-R1.fastq.gz, R2.fastq.gz, Undetermined_R1.fastq.gz and Undetermined_R2.fastq.gz are automatically generated from the base-calling (bci).
+R1.fastq.gz, R2.fastq.gz, Undetermined_R1.fastq.gz and Undetermined_R2.fastq.gz are automatically generated from the base calls in the BCL files.
 
 # Workflow summary
 1. Sequencing quality control and trimming
