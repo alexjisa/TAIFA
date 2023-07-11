@@ -37,6 +37,8 @@ Link: https://github.com/s-andrews/FastQC/blob/master/README.md
 >
 Description:
 >
+Trimmomatic is a tool for trimming Illumina FASTQ data and removing adapters. In this case, the adapters are automatically removed in advance, so in the command what is done is: remove the last and first base, remove the read if the average quality is less than 20, and examines the read 4 by 4 bases and eliminates it if the average quality is lower than the given value.
+>
 Link: https://github.com/usadellab/Trimmomatic/blob/main/README.md
 ```{bash}
 java -jar /path/to/trimmomatic-0.39.jar PE -phred33 R1.fastq.gz R2.fastq.gz trim_R1.fastq.gz Undetermined_R1.fastq.gz trim_R2.fastq.gz Undetermined_R2.fastq.gz CROP:150 HEADCROP:1 AVGQUAL:20 SLIDINGWINDOW:4:20
