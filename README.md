@@ -71,7 +71,7 @@ Link: https://sourceforge.net/p/ngopt/wiki/A5PipelineREADME/ ; DOI:10.1093/bioin
 >
 Description:
 >
-Evaluation according to assembly continuity (number of bp, number of contigs or N50) and other information (like GC%, largest contig or mismatches).
+Evaluation according to assembly continuity. QUAST provides various metrics that quantitatively describe the assembly quality, such as the number and size of contigs, N50 length (a measure of contig/scaffold length), genome fraction coverage, misassemblies, indels, and duplicated regions. These metrics help researchers understand the completeness and accuracy of the assembly.
 >
 Link: https://quast.sourceforge.net/docs/manual.html
 ```{bash}
@@ -83,7 +83,7 @@ quast.py a5_output.contigs.fasta -o quast_a5_output -l a5
 >
 Description:
 >
-Evaluation according to assembly content.
+Evaluation according to assembly content. The purpose of BUSCO is to evaluate the completeness and accuracy of an assembly by comparing it to a set of highly conserved genes that are expected to be present in most species. In this case it utilizes a database of orthologous genes that are considered to be universally present as single-copy genes across bacteria. These genes are highly conserved, meaning they have minimal sequence variation and are maintained in a single copy within a genome. The output provides quantitative measures, such as the number and percentage of complete, fragmented, and missing orthologs.
 >
 Link: https://busco.ezlab.org/v3/
 ```{bash}
@@ -93,27 +93,27 @@ run_BUSCO.py -c 4 -i a5_output.contigs.fasta -l /path/to/bacteria_odb9 -o busco_
 ```
 
 ## 3. Mapping
-*3.1. BWA, SAMtools*
+*3.1. BWA and SAMtools*
 >
 Description:
 >
-Link:
+Construction of the index for the sequenced genome and mapping reads against this genome thanks to BWA index and MEM, respectively. Conversion of SAM file to BAM, ordering of BAM file by genomic position and index construction by samtools
+>
+Link: https://github.com/lh3/bwa/blob/master/README.md ; https://github.com/samtools/samtools
 ```{bash}
-bwa index mygenome.contigs.fasta
-bwa mem mygenome.contigs.fasta trim_R1_concatenado.fastq.gz trim_R2_concatenado.fastq.gz > result.sam
-samtools view -b -o result.bam result.sam
-Tras ejecutar este .sh procedemos a comprobar si todo ha ido bien en result.bam:
-samtools view -H result.bam
-samtools view result.bam | tail
-rm -fr result.sam
-samtools sort result.bam -o result_sort.bam
-samtools index result_sort.bam
-samtools faidx result_sort.bam
+bwa index a5_output.contigs.fasta
+bwa mem a5_output.contigs.fasta trim_R1.fastq.gz trim_R2.fastq.gz > align.sam
+
+samtools view -b -o align.bam align.sam
+samtools sort align.bam -o align_sort.bam
+samtools index align_sort.bam
 ```
 
 *3.2. IGV*
 >
 Description:
+>
+It is an alignment viewer in which we load the resulting BAM file as well as the GFF file of the structural annotation.
 >
 Link: https://software.broadinstitute.org/software/igv/
 
@@ -121,7 +121,7 @@ Link: https://software.broadinstitute.org/software/igv/
 >
 Description:
 >
-
+The BAM QC analysis mode evaluates the quality of the alignment data contained in the BAM file. It returns information on reads, coverage, alignment quality...
 >
 Link: http://qualimap.conesalab.org/
 
