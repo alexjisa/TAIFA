@@ -163,6 +163,8 @@ Description:
 >
 Preliminary approaches to determine the possible pathogenicity of bacteria are necessary in any kind of research. The characterisation of virulence factors (VFs), proteins enable to cause infection, from WGS data allows you to get an idea of the microorganism you are working with.
 >
+For this purpose, DIAMOND, a fast and sensitive protein aligner, is used to achieve ultra-fast alignments against the Virulence Factors DataBase (VFDB). The chosen parameters ensure a high sequence alignment identification.
+>
 Link: https://github.com/bbuchfink/diamond/blob/master/README.md ; http://www.mgc.ac.cn/cgi-bin/VFs/v5/main.cgi
 ```{bash
 conda activate diamond_env
