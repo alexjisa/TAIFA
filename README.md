@@ -10,7 +10,7 @@ Bacterial genomic DNA is obtained using an extraction and purification kit accor
 >
 Libraries are prepared using Illumina DNA Prep technology (previously known as Nextera DNA Flex). Quantitation and quality control are performed before sequencing.
 >
-Results are from Illumina iSeq100 paired-end sequencing run, 2 × 150 bp. Around 17 hours with a maximum output of 1.2 Gb.
+Results are from Illumina iSeq100 paired-end (PE) sequencing run, 2 × 150 bp. Around 17 hours with a maximum output of 1.2 Gb.
 >
 R1.fastq.gz, R2.fastq.gz, Undetermined_R1.fastq.gz and Undetermined_R2.fastq.gz are automatically generated from the base-calling (bci).
 
@@ -60,7 +60,7 @@ Easy, fast and the best results.
 >
 Link: https://sourceforge.net/p/ngopt/wiki/A5PipelineREADME/ ; DOI:10.1093/bioinformatics/btu661
 ```{bash}
-/path/to/a5_pipeline.pl --threads=4 R1.fastq R2.fastq a5_output 
+/path/to/a5_pipeline.pl --threads=4 trim_R1.fastq trim_R2.fastq a5_output 
 ```
 
 *2.2. QUAST*
