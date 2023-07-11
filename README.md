@@ -98,7 +98,7 @@ run_BUSCO.py -c 4 -i a5_output.contigs.fasta -l /path/to/bacteria_odb9 -o busco_
 >
 Description:
 >
-Construction of the index for the sequenced genome and mapping reads against this genome thanks to BWA index and MEM, respectively. Conversion of SAM file to BAM, ordering of BAM file by genomic position and index construction by samtools
+Construction of the index for the sequenced genome and mapping reads against this genome thanks to BWA index and MEM, respectively. Conversion of SAM file to BAM, ordering of BAM file by genomic position and index construction by samtools.
 >
 Link: https://github.com/lh3/bwa/blob/master/README.md ; https://github.com/samtools/samtools
 ```{bash}
