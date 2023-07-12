@@ -17,9 +17,9 @@ R1.fastq.gz, R2.fastq.gz, Undetermined_R1.fastq.gz and Undetermined_R2.fastq.gz 
 # Workflow summary
 1. Sequencing quality control and trimming
 2. De novo genome assembly and evaluation 
-3. Mapping 
+3. Mapping (optional)
 4. Annotation
-5. Pathogenicity prediction 
+5. Pathogenicity prediction (optional)
   
 # Workflow
 ## 1. Sequencing quality control and trimming
@@ -93,7 +93,7 @@ module load augustus
 run_BUSCO.py -c 4 -i a5_output.contigs.fasta -l /path/to/bacteria_odb9 -o busco_a5 -m geno 
 ```
 
-## 3. Mapping
+## 3. Mapping (optional)
 *3.1. BWA and SAMtools*
 >
 Description:
@@ -154,7 +154,7 @@ The annotation is one of the most complete (COG category,  GOs, EC, KEGG, CAZY o
 >
 Link: https://github.com/eggnogdb/eggnog-mapper
 
-## 5. Pathogenicity prediction
+## 5. Pathogenicity prediction (optional)
 >
 [![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
 >
