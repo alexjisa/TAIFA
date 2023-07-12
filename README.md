@@ -114,7 +114,7 @@ samtools index align_sort.bam
 >
 Description:
 >
-It is an alignment viewer in which we load the resulting BAM file as well as the GFF file of the structural annotation.
+It is an alignment viewer in which we load the resulting BAM file as well as the GFF file of the structural annotation which will be obtained later.
 >
 Link: https://software.broadinstitute.org/software/igv/
 
@@ -161,7 +161,8 @@ Link: https://github.com/eggnogdb/eggnog-mapper
 >
 Description:
 >
-Preliminary approaches to determine the possible pathogenicity of bacteria are necessary in any kind of research. The characterisation of virulence factors (VFs), proteins enable to cause infection, from WGS data allows you to get an idea of the microorganism you are working with.
+Preliminary approaches to determine the possible pathogenicity of bacteria are necessary in any kind of research. The characterisation of virulence factors (VFs), proteins enable to cause infection, from WGS data allows you to know you are doing your project safely and securely.
+
 >
 For this purpose, DIAMOND, a fast and sensitive protein aligner, is used to achieve ultra-fast alignments against the Virulence Factors DataBase (VFDB). The chosen parameters ensure a high sequence alignment identification.
 >
