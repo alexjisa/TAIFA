@@ -171,6 +171,219 @@ Link: https://github.com/bbuchfink/diamond/blob/master/README.md ; http://www.mg
 conda activate diamond_env
 diamond blastp --db /home/alejandro_jimenez/vfdb -q a5_output_contigs.fasta -o vfdb_results.tsv --query-cover 97 --id 50
 ```
+## Automated pipeline implementation
+
+# 1) Control de calidad
+
+## 1.1) Primer FastQC
+
+```{bash}
+# Ruta de la carpeta principal
+origen="/home/alejandro_jimenez/seq"
+# Recorrer todas las carpetas dentro de la carpeta principal
+for carpeta in "$origen"/*; do
+if [ -d "$carpeta" ]; then
+  # Entrar en la carpeta "Alignment_1"
+  cd "$carpeta/Alignment_1" || continue
+  # Verificar si la carpeta "Fastq" existe
+  if [ -d "Fastq" ]; then
+    # Entrar en la carpeta "Fastq"
+    cd "$carpeta/Alignment_1/Fastq" || continue
+    # Ejecutar Fastqc
+    mkdir fastqc
+    /home/alejandro_jimenez/fastqc/fastqc *.fastq.gz -o "$carpeta"/Alignment_1/Fastq/fastqc
+    # Mostrar mensaje de confirmacion
+    echo "FastQC de las reads de la carpeta "$carpeta" realizado"
+  fi
+fi
+done
+```
+
+## 1.2) Checkpoint: Trimmomatic
+
+```{bash}
+# Ruta de la carpeta principal
+origen="/home/alejandro_jimenez/seq"
+
+# Recorrer todas las carpetas dentro de la carpeta principal
+for carpeta in "$origen"/*; do
+if [ -d "$carpeta" ]; then
+  # Entrar en la carpeta "Alignment_1"
+  cd "$carpeta/Alignment_1" || continue
+  # Verificar si la carpeta "Fastq" existe
+  if [ -d "Fastq" ]; then
+    # Entrar en la carpeta "Fastq"
+    cd "$carpeta/Alignment_1/Fastq" || continue
+    if [ -d "fastqc" ]; then
+      echo "Ingresa el comando de Trimmomatic a ejecutar para las reads en "$carpeta":"
+      
+      #java -jar /data/home/alejandro_jimenez/trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 MG_S1_L001_R1_001.fastq.gz MG_S1_L001_R2_001.fastq.gz /home/alejandro_jimenez/seq/mg/Alignment_1/Fastq/fastqc/trim_MG_S1_L001_R1_001.fastq.gz Undetermined_S0_L001_R1_001.fastq.gz /home/alejandro_jimenez/seq/mg/Alignment_1/Fastq/fastqc/trim_MG_S1_L001_R2_001.fastq.gz Undetermined_S0_L001_R2_001.fastq.gz CROP:150 HEADCROP:1 AVGQUAL:20 SLIDINGWINDOW:4:20
+
+      #java -jar /data/home/alejandro_jimenez/trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 MUS4_S1_L001_R1_001.fastq.gz MUS4_S1_L001_R2_001.fastq.gz /home/alejandro_jimenez/seq/mus4/Alignment_1/Fastq/fastqc/trim_MUS4_S1_L001_R1_001.fastq.gz Undetermined_S0_L001_R1_001.fastq.gz /home/alejandro_jimenez/seq/mus4/Alignment_1/Fastq/fastqc/trim_MUS4_S1_L001_R2_001.fastq.gz Undetermined_S0_L001_R2_001.fastq.gz CROP:150 HEADCROP:1 AVGQUAL:20 SLIDINGWINDOW:4:20
+
+      #java -jar /data/home/alejandro_jimenez/trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 MUS7_S1_L001_R1_001.fastq.gz MUS7_S1_L001_R2_001.fastq.gz /home/alejandro_jimenez/seq/mus7/Alignment_1/Fastq/fastqc/trim_MUS7_S1_L001_R1_001.fastq.gz Undetermined_S0_L001_R1_001.fastq.gz /home/alejandro_jimenez/seq/mus7/Alignment_1/Fastq/fastqc/trim_MUS7_S1_L001_R2_001.fastq.gz Undetermined_S0_L001_R2_001.fastq.gz CROP:150 HEADCROP:1 AVGQUAL:20 SLIDINGWINDOW:4:20
+      
+      #java -jar /data/home/alejandro_jimenez/trimmomatic-0.39/trimmomatic-0.39.jar PE -phred33 MR_S1_L001_R1_001.fastq.gz MR_S1_L001_R2_001.fastq.gz /home/alejandro_jimenez/seq/mr/Alignment_1/Fastq/fastqc/trim_MR_S1_L001_R1_001.fastq.gz Undetermined_S0_L001_R1_001.fastq.gz /home/alejandro_jimenez/seq/mr/Alignment_1/Fastq/fastqc/trim_MR_S1_L001_R2_001.fastq.gz Undetermined_S0_L001_R2_001.fastq.gz CROP:150 HEADCROP:1 AVGQUAL:20 SLIDINGWINDOW:4:20
+
+      read comando
+      eval "$comando"
+      # Mostrar mensaje de confirmacion
+      echo "Trimmomatic de las reads de la carpeta "$carpeta" realizado"
+    fi
+  fi
+fi
+done
+```
+
+## 1.3) Segundo FastQC
+
+```{bash}
+# Ruta de la carpeta principal
+origen="/home/alejandro_jimenez/seq"
+
+# Recorrer todas las carpetas dentro de la carpeta principal
+for carpeta in "$origen"/*; do
+if [ -d "$carpeta" ]; then
+  # Entrar en la carpeta "Alignment_1"
+  cd "$carpeta/Alignment_1" || continue
+  # Verificar si la carpeta "Fastq" existe
+  if [ -d "Fastq" ]; then
+    # Entrar en la carpeta "Fastq"
+    cd "$carpeta/Alignment_1/Fastq" || continue
+    if [ -d "fastqc" ]; then
+      cd "$carpeta/Alignment_1/Fastq/fastqc" || continue
+      # Ejecutar Fastqc
+      /home/alejandro_jimenez/fastqc/fastqc trim_*
+      # Mostrar mensaje de confirmacion
+      echo "FastQC de las reads trimmeadas de la carpeta "$carpeta" realizado"
+    fi
+  fi
+fi
+done
+```
+
+# 2) Ensamblaje de novo y evaluación
+
+## 2.1) A5-miseq
+
+```{bash}
+# Ruta de la carpeta principal
+origen="/home/alejandro_jimenez/seq"
+
+# Expresión regular para los archivos R1
+patron_r1="trim_.*_S1_L001_R1_001.fastq"
+
+# Expresión regular para los archivos R2
+patron_r2="trim_.*_S1_L001_R2_001.fastq"
+
+# Recorrer todas las carpetas dentro de la carpeta principal
+for carpeta in "$origen"/*; do
+if [ -d "$carpeta" ]; then
+  # Entrar en la carpeta "Alignment_1"
+  cd "$carpeta/Alignment_1" || continue
+  # Verificar si la carpeta "Fastq" existe
+  if [ -d "Fastq" ]; then
+    # Entrar en la carpeta "Fastq"
+    cd "$carpeta/Alignment_1/Fastq" || continue
+    if [ -d "fastqc" ]; then
+      cd "$carpeta/Alignment_1/Fastq/fastqc" || continue
+      
+      # Buscar archivos R1 que coincidan con el patrón en la carpeta principal y subcarpetas
+      archivos_r1=$(find "$carpeta/Alignment_1/Fastq/fastqc" -regex ".*/$patron_r1")
+
+      # Buscar archivos R2 que coincidan con el patrón en la carpeta principal y subcarpetas
+      archivos_r2=$(find "$carpeta/Alignment_1/Fastq/fastqc" -regex ".*/$patron_r2")
+      
+      # Verificar si se encontraron archivos R1 y R2
+      if [ -n "$archivos_r1" ] && [ -n "$archivos_r2" ]; then
+      # Ejecutar el comando sobre cada par de archivos R1 y R2
+        for archivo_r1 in $archivos_r1; do
+          archivo_r2=$(echo "$archivo_r1" | sed 's/R1/R2/')
+          nohup time -p /data/home/alejandro_jimenez/a5/bin/a5_pipeline.pl --threads=6 "$archivo_r1" "$archivo_r2" a5_output &
+        done
+        # Mostrar mensaje de confirmacion
+        echo "Ensamblaje con A5 de las reads de la carpeta "$carpeta" realizado"
+      else
+      echo "No se encontraron archivos que coincidan con los patrones"
+      fi
+    fi
+  fi
+fi
+done
+```
+
+## 2.2) QUAST
+
+```{bash}
+conda activate quast_env
+
+# Ruta de la carpeta principal
+origen="/home/alejandro_jimenez/seq"
+
+# Recorrer todas las carpetas dentro de la carpeta principal
+for carpeta in "$origen"/*; do
+if [ -d "$carpeta" ]; then
+  # Entrar en la carpeta "Alignment_1"
+  cd "$carpeta/Alignment_1" || continue
+  # Verificar si la carpeta "Fastq" existe
+  if [ -d "Fastq" ]; then
+    # Entrar en la carpeta "Fastq"
+    cd "$carpeta/Alignment_1/Fastq" || continue
+    if [ -d "fastqc" ]; then
+      cd "$carpeta/Alignment_1/Fastq/fastqc" || continue
+      quast.py a5_output.contigs.fasta -o quast_a5_output -l a5
+    fi 
+  fi
+fi
+done
+
+conda deactivate
+```
+
+## 2.3) BUSCO
+
+```{bash}
+module load Anaconda3/4.4.0
+module load augustus
+run_BUSCO.py -c 4 -i a5_output.contigs.fasta -l /home/alejandro_jimenez/bacteria_odb9 -o busco_a5 -m geno 
+```
+
+# 3. Anotación estructural y funcional
+
+## 3.1) Prokka
+
+```{bash}
+conda activate prokka_env
+
+# Ruta de la carpeta principal
+origen="/home/alejandro_jimenez/seq"
+
+# Recorrer todas las carpetas dentro de la carpeta principal
+for carpeta in "$origen"/*; do
+if [ -d "$carpeta" ]; then
+  # Entrar en la carpeta "Alignment_1"
+  cd "$carpeta/Alignment_1" || continue
+  # Verificar si la carpeta "Fastq" existe
+  if [ -d "Fastq" ]; then
+    # Entrar en la carpeta "Fastq"
+    cd "$carpeta/Alignment_1/Fastq" || continue
+    if [ -d "fastqc" ]; then
+      cd "$carpeta/Alignment_1/Fastq/fastqc" || continue
+      nohup time -p prokka a5_output.contigs.fasta --cpus 6 --outdir prokka_output &
+    fi 
+  fi
+fi
+done
+
+cd /home/alejandro_jimenez/seq/mr/Alignment_1/Fastq/fastqc/spades_output
+nohup time -p prokka contigs.fasta --cpus 6 --outdir prokka_output &
+
+conda deactivate
+```
+
+## 3.2) eggNOGmapper
+
+<http://eggnog-mapper.embl.de/> <https://github.com/eggnogdb/eggnog-mapper>
 
 # Credits
 >
